@@ -35,6 +35,6 @@ export const handler = middy(async (event) => {
     });
 }).use(httpJsonBodyParser())
   .use(authenticateUser())
-  .use(authorizeRole(['GUEST', 'ADMIN'])) // Both GUEST and ADMIN can create notes
+  .use(authorizeRole(['USER', 'ADMIN'])) // Both GUEST and ADMIN can create notes
   .use(validateNote())
   .use(errorHandler());

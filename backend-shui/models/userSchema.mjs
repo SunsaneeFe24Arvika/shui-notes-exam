@@ -12,6 +12,6 @@ export const userSchema = Joi.object({
         .required(),
     email : Joi.string().email().required(),
     role : Joi.string()
-        .valid('GUEST', 'ADMIN')
+        .valid('USER', 'ADMIN')
         .required()
 });

@@ -4,7 +4,7 @@ import { errorHandler } from '../../../middlewares/errorHandler.mjs';
 import { authenticateUser } from '../../../middlewares/authenticateUser.mjs';
 import { authorizeRole } from '../../../middlewares/authorizeRole.mjs';
 import { throwError } from '../../../utils/throwError.mjs';
-import { getNoteById } from '../../../services/notes.mjs';
+import { deleteNoteById } from '../../../services/notes.mjs';
 
 export const handler = middy(async (event) => {
     // Get the note ID from path parameters
@@ -14,8 +14,11 @@ export const handler = middy(async (event) => {
         throwError('Note ID is required', 400);
     }
 
-    // Get the note from database
-    const result = await getNoteById(id);
+    // Get authenticated user info
+    const { username } = event.user;
+
+    // Delete the note (with ownership check)
+    const result = await deleteNoteById(id, username);
 
     if (!result.success) {
         if (result.message === 'Note not found') {
@@ -24,15 +27,17 @@ export const handler = middy(async (event) => {
                 message: `Note with ID ${id} not found`
             });
         }
-        throwError(result.message || 'Failed to retrieve note', 500);
+        if (result.message === 'Unauthorized') {
+            throwError('You can only delete your own notes', 403);
+        }
+        throwError(result.message || 'Failed to delete note', 500);
     }
 
     return sendResponse(200, {
         success: true,
-        message: 'Note retrieved successfully',
-        note: result.note
+        message: 'Note deleted successfully'
     });
 
 }).use(authenticateUser())
-  .use(authorizeRole(['USER', 'ADMIN'])) 
+  .use(authorizeRole(['GUEST', 'ADMIN'])) 
   .use(errorHandler());

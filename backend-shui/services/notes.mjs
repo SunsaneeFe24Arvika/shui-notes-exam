@@ -106,26 +106,47 @@ export const getAllNotes = async (username = null) => {
     }
 };
 
-export const updateNote = async (noteId, updates) => {
+export const updateNoteById = async (noteId, updates, requestingUsername) => {
+    // First, get the existing note to check ownership
+    const existingNote = await getNoteById(noteId);
+    
+    if (!existingNote.success) {
+        return existingNote; // Return the error (note not found)
+    }
+
+    // Check if the requesting user owns this note
+    if (existingNote.note.username !== requestingUsername) {
+        return { success: false, message: 'Unauthorized' };
+    }
+
     const timestamp = new Date().toISOString();
     
+    // Build dynamic update expression based on provided fields
+    let updateExpression = 'SET #updatedAt = :updatedAt';
+    const expressionAttributeNames = { '#updatedAt': 'updatedAt' };
+    const expressionAttributeValues = { ':updatedAt': timestamp };
+
+    if (updates.title) {
+        updateExpression += ', #title = :title';
+        expressionAttributeNames['#title'] = 'title';
+        expressionAttributeValues[':title'] = updates.title;
+    }
+
+    if (updates.content) {
+        updateExpression += ', #content = :content';
+        expressionAttributeNames['#content'] = 'content';
+        expressionAttributeValues[':content'] = updates.content;
+    }
+
     const command = new UpdateItemCommand({
         TableName: 'shui-api',
         Key: marshall({
             PK: `NOTE#${noteId}`,
             SK: 'METADATA'
         }),
-        UpdateExpression: 'SET #title = :title, #content = :content, #updatedAt = :updatedAt',
-        ExpressionAttributeNames: {
-            '#title': 'title',
-            '#content': 'content', 
-            '#updatedAt': 'updatedAt'
-        },
-        ExpressionAttributeValues: marshall({
-            ':title': updates.title,
-            ':content': updates.content,
-            ':updatedAt': timestamp
-        }),
+        UpdateExpression: updateExpression,
+        ExpressionAttributeNames: expressionAttributeNames,
+        ExpressionAttributeValues: marshall(expressionAttributeValues),
         ReturnValues: 'ALL_NEW'
     });
 
@@ -134,7 +155,7 @@ export const updateNote = async (noteId, updates) => {
         const updatedNote = unmarshall(Attributes);
         return { success: true, note: updatedNote };
     } catch (error) {
-        console.log('ERROR in updateNote:', error.message);
+        console.log('ERROR in updateNoteById:', error.message);
         return { success: false, message: error.message };
     }
 };
@@ -153,6 +174,38 @@ export const deleteNote = async (noteId) => {
         return { success: true, message: 'Note deleted successfully' };
     } catch (error) {
         console.log('ERROR in deleteNote:', error.message);
+        return { success: false, message: error.message };
+    }
+};
+
+
+export const deleteNoteById = async (noteId, requestingUsername) => {
+    // Kontrollera om note finns
+    const existingNote = await getNoteById(noteId);
+    
+    if (!existingNote.success) {
+        return existingNote; // returnera om note inte finns
+    }
+
+    // Kontrollera om user har behörighet att radera - Det ska bara ägaren få radera
+    if (existingNote.note.username !== requestingUsername) {
+        return { success: false, message: 'Unauthorized' };
+    }
+
+    
+    const command = new DeleteItemCommand({
+        TableName: 'shui-api',
+        Key: marshall({
+            PK: `NOTE#${noteId}`,
+            SK: 'METADATA'
+        })
+    });
+
+    try {
+        await client.send(command);
+        return { success: true, message: 'Note deleted successfully' };
+    } catch (error) {
+        console.log('ERROR in deleteNoteById:', error.message);
         return { success: false, message: error.message };
     }
 };

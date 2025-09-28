@@ -38,5 +38,5 @@ export const handler = middy(async (event) => {
     });
 
 }).use(authenticateUser())
-  .use(authorizeRole(['GUEST', 'ADMIN'])) 
+  .use(authorizeRole(['USER', 'ADMIN'])) 
   .use(errorHandler());

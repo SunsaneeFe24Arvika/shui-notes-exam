@@ -46,12 +46,6 @@ functions:
           path: /api/notes/{id}
           method: GET
   
-  UpdateNoteById:
-    handler: funcktions/notes/UpdateNoteById/index.handler
-    events:
-      - httpApi:
-          path: /api/notes/{id}
-          method: PUT
   EditNoteById:
     handler: funcktions/notes/EditNoteById/index.handler
     events:

@@ -2,7 +2,7 @@ import { throwError } from "../utils/throwError.mjs";
 
 export const authorizeRole = (allowedRoles = []) => ({
     before: (handler) => {
-        // This middleware should run after authenticateUser
+        // Den här middleware kommer att aktivera efter authenticateUser
         const user = handler.event.user;
         
         if (!user) {
@@ -13,7 +13,7 @@ export const authorizeRole = (allowedRoles = []) => ({
             throwError('User role not found', 403);
         }
 
-        // Check if user's role is in allowed roles
+        // Kolla om rollen är tillåtet. 
         if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
             throwError(`Access denied. Required roles: ${allowedRoles.join(', ')}`, 403);
         }
