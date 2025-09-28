@@ -27,43 +27,43 @@ functions:
           method: POST
 
 # NOTES
-  # PostNotes:
-  #   handler: funcktions/notes/PostNote/index.handler
-  #   events:
-  #     - httpApi:
-  #         path: /api/notes
-  #         method: POST
-  # GetNotes:
-  #   handler: funcktions/notes/GetNotes/index.handler
-  #   events:
-  #     - httpApi:
-  #         path: /api/notes
-  #         method: GET
-  # GetNoteById:
-  #   handler: funcktions/notes/GetNoteById/index.handler
-  #   events:
-  #     - httpApi:
-  #         path: /api/notes/{id}
-  #         method: GET
+  PostNotes:
+    handler: funcktions/notes/PostNote/index.handler
+    events:
+      - httpApi:
+          path: /api/notes
+          method: POST
+  GetNotes:
+    handler: funcktions/notes/GetNotes/index.handler
+    events:
+      - httpApi:
+          path: /api/notes
+          method: GET
+  GetNoteById:
+    handler: funcktions/notes/GetNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: GET
   
-  # UpdateNoteById:
-  #   handler: funcktions/notes/UpdateNoteById/index.handler
-  #   events:
-  #     - httpApi:
-  #         path: /api/notes/{id}
-  #         method: PUT
-  # EditNoteById:
-  #   handler: funcktions/notes/EditNoteById/index.handler
-  #   events:
-  #     - httpApi:
-  #         path: /api/notes/{id}
-  #         method: PATCH
-  # DeleteNoteById:
-  #   handler: funcktions/notes/DeleteNoteById/index.handler
-  #   events:
-  #     - httpApi:
-  #         path: /api/notes/{id}
-  #         method: DELETE
+  UpdateNoteById:
+    handler: funcktions/notes/UpdateNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: PUT
+  EditNoteById:
+    handler: funcktions/notes/EditNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: PATCH
+  DeleteNoteById:
+    handler: funcktions/notes/DeleteNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: DELETE
 
 resources:
   Resources:
