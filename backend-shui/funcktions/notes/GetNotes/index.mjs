@@ -2,7 +2,6 @@ import middy from '@middy/core';
 import { sendResponse } from '../../../responses/index.mjs';
 import { errorHandler } from '../../../middlewares/errorHandler.mjs';
 import { authenticateUser } from '../../../middlewares/authenticateUser.mjs';
-import { authorizeRole } from '../../../middlewares/authorizeRole.mjs';
 import { throwError } from '../../../utils/throwError.mjs';
 import { getAllNotes } from '../../../services/notes.mjs';
 
@@ -14,7 +13,7 @@ export const handler = middy(async (event) => {
     const result = await getAllNotes(requestedUsername);
 
     if (!result.success) {
-        throwError(result.message || 'Failed to retrieve notes', 500);
+        throwError(result.message || 'Failed to retrieve notes', 400);
     }
 
     const { notes } = result;
@@ -38,5 +37,4 @@ export const handler = middy(async (event) => {
     });
 
 }).use(authenticateUser())
-  .use(authorizeRole(['USER', 'ADMIN'])) 
   .use(errorHandler());

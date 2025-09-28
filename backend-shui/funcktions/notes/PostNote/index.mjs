@@ -3,25 +3,27 @@ import httpJsonBodyParser from '@middy/http-json-body-parser';
 import { sendResponse } from '../../../responses/index.mjs';
 import { errorHandler } from '../../../middlewares/errorHandler.mjs';
 import { authenticateUser } from '../../../middlewares/authenticateUser.mjs';
-import { authorizeRole } from '../../../middlewares/authorizeRole.mjs';
 import { throwError } from '../../../utils/throwError.mjs';
 import { validateNote } from '../../../middlewares/validateNote.mjs';
 import { addNote } from '../../../services/notes.mjs';
 import { generateId } from '../../../utils/uuid.mjs';
+import { formatDateForResponse } from '../../../utils/dateFormat.mjs';
 
 export const handler = middy(async (event) => {
-    // Get authenticated user from middleware
-    const { username, role } = event.user;
+    // Get authenticated user from middleware (no more roles)
+    const { username } = event.user;
     
-    // Create note object with authenticated user's data
+    // Create complete note data object
     const noteData = {
-        ...event.body,
-        id: generateId(6),
-        username: username, // Use authenticated user's username
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString()
+        id: generateId(4), // Generate unique ID
+        title: event.body.title,
+        content: event.body.content,
+        username: username,
+        createdAt: formatDateForResponse(new Date()), // YYYY-MM-DD format
+        updatedAt: formatDateForResponse(new Date())  // YYYY-MM-DD format
     };
-
+    
+    // Call addNote with complete note data
     const result = await addNote(noteData);
     
     if (!result.success) {
@@ -35,6 +37,5 @@ export const handler = middy(async (event) => {
     });
 }).use(httpJsonBodyParser())
   .use(authenticateUser())
-  .use(authorizeRole(['USER', 'ADMIN'])) // Both GUEST and ADMIN can create notes
   .use(validateNote())
   .use(errorHandler());

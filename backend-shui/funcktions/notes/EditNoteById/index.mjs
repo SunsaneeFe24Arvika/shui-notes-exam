@@ -4,7 +4,6 @@ import { updateNoteById } from "../../../services/notes.mjs";
 import { sendResponse } from '../../../responses/index.mjs';
 import { errorHandler } from '../../../middlewares/errorHandler.mjs';
 import { authenticateUser } from '../../../middlewares/authenticateUser.mjs';
-import { authorizeRole } from '../../../middlewares/authorizeRole.mjs';
 import { validateUpdateNote } from '../../../middlewares/validateUpdateNote.mjs';
 import { throwError } from '../../../utils/throwError.mjs';
 
@@ -40,6 +39,5 @@ export const handler = middy(async (event) => {
 
 }).use(httpJsonBodyParser())
   .use(authenticateUser())
-  .use(authorizeRole(['USER', 'ADMIN']))
   .use(validateUpdateNote())
   .use(errorHandler());

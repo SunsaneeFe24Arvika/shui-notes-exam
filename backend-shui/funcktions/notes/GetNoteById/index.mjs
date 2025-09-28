@@ -2,9 +2,8 @@ import middy from '@middy/core';
 import { sendResponse } from '../../../responses/index.mjs';
 import { errorHandler } from '../../../middlewares/errorHandler.mjs';
 import { authenticateUser } from '../../../middlewares/authenticateUser.mjs';
-import { authorizeRole } from '../../../middlewares/authorizeRole.mjs';
 import { throwError } from '../../../utils/throwError.mjs';
-import { getNoteById } from '../../../services/notes.mjs';
+import { findNoteById } from '../../../services/notes.mjs';
 
 export const handler = middy(async (event) => {
     // Get the note ID from path parameters
@@ -14,8 +13,8 @@ export const handler = middy(async (event) => {
         throwError('Note ID is required', 400);
     }
 
-    // Get the note from database
-    const result = await getNoteById(id);
+    // Get the note from database using findNoteById (works with just ID)
+    const result = await findNoteById(id);
 
     if (!result.success) {
         if (result.message === 'Note not found') {
@@ -34,5 +33,4 @@ export const handler = middy(async (event) => {
     });
 
 }).use(authenticateUser())
-  .use(authorizeRole(['USER', 'ADMIN'])) 
   .use(errorHandler());
