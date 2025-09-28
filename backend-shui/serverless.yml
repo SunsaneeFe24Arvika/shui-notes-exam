@@ -14,56 +14,56 @@ provider:
 functions:
 # AUTH
   RegisterUser:
-    handler: functions/auth/RegisterUser/index.handler
+    handler: funcktions/auth/RegisterUser/index.handler
     events:
       - httpApi:
-          path: /api/auth/RegisterUser
+          path: /api/auth/register
           method: POST
   LoginUser:
-    handler: functions/auth/LoginUser/index.handler
+    handler: funcktions/auth/LoginUser/index.handler
     events:
       - httpApi:
           path: /api/auth/login
           method: POST
 
 # NOTES
-  PostNotes:
-    handler: function/notes/PostNote/index.handler
-    events:
-      - httpApi:
-          path: /api/notes
-          method: POST
-  GetNotes:
-    handler: function/notes/GetNotes/index.handler
-    events:
-      - httpApi:
-          path: /api/notes
-          method: GET
-  GetNoteById:
-    handler: function/notes/GetNoteById/index.handler
-    events:
-      - httpApi:
-          path: /api/notes/{id}
-          method: GET
+  # PostNotes:
+  #   handler: funcktions/notes/PostNote/index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /api/notes
+  #         method: POST
+  # GetNotes:
+  #   handler: funcktions/notes/GetNotes/index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /api/notes
+  #         method: GET
+  # GetNoteById:
+  #   handler: funcktions/notes/GetNoteById/index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /api/notes/{id}
+  #         method: GET
   
-  UpdateNoteById:
-    handler: function/notes/UpdateNoteById/index.handler
-    events:
-      - httpApi:
-          path: /api/notes/{id}
-          method: PUT
-  EditNoteById:
-    handler: functions/notes/EditNoteById/index.handler
-    events:
-      - httpApi:
-          path: /api/notes/{id}
-          method: PATCH
-  DeleteNoteById:
-    handler: function/notes/DeleteNoteById/index.handler
-    events:
-      - httpApi:
-          path: /api/notes/{id}
-          method: DELETE
+  # UpdateNoteById:
+  #   handler: funcktions/notes/UpdateNoteById/index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /api/notes/{id}
+  #         method: PUT
+  # EditNoteById:
+  #   handler: funcktions/notes/EditNoteById/index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /api/notes/{id}
+  #         method: PATCH
+  # DeleteNoteById:
+  #   handler: funcktions/notes/DeleteNoteById/index.handler
+  #   events:
+  #     - httpApi:
+  #         path: /api/notes/{id}
+  #         method: DELETE
 
 resources:
   Resources:
