@@ -14,8 +14,7 @@ export const registeredUser = async (user) => {
                 M: {
                     username: { S: user.username },
                     password: { S: await hashPassword(user.password) },
-                    email: { S: user.email },
-                    role: { S: user.role }
+                    email: { S: user.email }
                 }
             }
         }

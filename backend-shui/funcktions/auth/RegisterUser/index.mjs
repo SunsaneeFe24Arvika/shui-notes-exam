@@ -11,7 +11,7 @@ export const handler = middy(async (event) => {
   if(response) {
     return sendResponse(201, { message : 'User created successfully' });
   } else {
-    return throwError(response.message || 'User could not be created', 400);
+    return throwError('User could not be created', 400);
   }
 }).use(httpJsonBodyParser())
   .use(validateUser())

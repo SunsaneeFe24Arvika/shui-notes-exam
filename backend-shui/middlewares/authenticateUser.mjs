@@ -23,18 +23,21 @@ export const authenticateUser = () => ({
             const decoded = verifyToken(token);
             
             if (!decoded) {
-                throwError('Invalid token', 401);
+                console.log('Token verification failed - decoded is null');
+                throwError('Invalid or expired token', 401);
             }
 
-            // Add user info to event context
+            console.log('Token verified successfully for user:', decoded.username);
+
+            // Add user info to event context (no roles anymore)
             handler.event.user = {
-                username: decoded.username,
-                role: decoded.role
+                username: decoded.username
             };
 
         } catch (error) {
+            console.log('Authentication error:', error.message);
             if (error.name === 'TokenExpiredError') {
-                throwError('Token has expired', 401);
+                throwError('Token has expired - please login again', 401);
             } else if (error.name === 'JsonWebTokenError') {
                 throwError('Invalid token format', 401);
             } else {

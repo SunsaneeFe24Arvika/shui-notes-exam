@@ -2,22 +2,21 @@ import middy from '@middy/core';
 import { sendResponse } from '../../../responses/index.mjs';
 import { errorHandler } from '../../../middlewares/errorHandler.mjs';
 import { authenticateUser } from '../../../middlewares/authenticateUser.mjs';
-import { authorizeRole } from '../../../middlewares/authorizeRole.mjs';
 import { throwError } from '../../../utils/throwError.mjs';
 import { deleteNoteById } from '../../../services/notes.mjs';
 
 export const handler = middy(async (event) => {
-    // Get the note ID from path parameters
+    // Get noteId from path parameters
     const { id } = event.pathParameters || {};
 
     if (!id) {
         throwError('Note ID is required', 400);
     }
 
-    // Get authenticated user info
+    // Get authenticated user information
     const { username } = event.user;
 
-    // Delete the note (with ownership check)
+    // Delete note with ownership check
     const result = await deleteNoteById(id, username);
 
     if (!result.success) {
@@ -35,9 +34,8 @@ export const handler = middy(async (event) => {
 
     return sendResponse(200, {
         success: true,
-        message: 'Note deleted successfully'
+        message: result.message || 'Note deleted successfully'
     });
 
 }).use(authenticateUser())
-  .use(authorizeRole(['GUEST', 'ADMIN'])) 
   .use(errorHandler());

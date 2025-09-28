@@ -22,13 +22,11 @@ export const handler = middy(async (event) => {
   }
   
   const token = generateToken({ 
-    username: response.attributes.username, 
-    role: response.attributes.role 
+    username: response.attributes.username
   });
 
   return sendResponse(200, { 
     message: 'User logged in successfully',
-    role: response.attributes.role, 
     token: `Bearer ${token}`
   });
 }).use(httpJsonBodyParser())
