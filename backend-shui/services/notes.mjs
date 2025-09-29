@@ -131,12 +131,6 @@ export const getNoteById = async (username, noteId) => {
 export const findNoteById = async (noteId) => {
     console.log('Looking for noteId:', noteId);
     
-    // Option 1: Sök med GSI om vi har det uppsatt för noteId
-    // Men vi har GSI1PK: title, GSI1SK: createdAt så det hjälper inte här
-    
-    // Option 2: Vi kan skapa ett GSI2 med noteId som PK, eller...
-    // Option 3: Använd Scan men med bättre filtrering
-    
     const command = new ScanCommand({
         TableName: 'shui-api',
         FilterExpression: 'id = :noteId',
