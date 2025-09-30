@@ -3,22 +3,26 @@ import './authPage.css';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 import Logo from '../../components/Logo/Logo';
-import bg from '../../assets/bg4.jpg';
+
+const FORM_TYPE = {
+    LOGIN: 'LOGIN',
+    REGISTER: 'REGISTER'
+};
 
 const AuthPage = () => {
-    const [ activeForm, setActiveForm ] = useState('LOGIN');
+    const [ activeForm, setActiveForm ] = useState(FORM_TYPE.LOGIN);
 
     const toggleForm = (form) => {
         setActiveForm(form);
     }
 
     return (
-        <section className="auth-page page" style={{ backgroundImage: `url(${bg})`}}>
+        <section className="auth-page page">
             <Logo />
             {
-                activeForm === 'LOGIN'
+                activeForm === FORM_TYPE.LOGIN
                 ? <LoginForm toggleForm={ toggleForm } />
-                : <RegisterForm toggleForm={ toggleForm } />
+                : <RegisterForm toggleForm={ toggleForm } /> 
             }
         </section>
     )
