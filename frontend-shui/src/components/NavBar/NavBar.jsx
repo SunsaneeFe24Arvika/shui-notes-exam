@@ -8,25 +8,31 @@ const NavBar = () => {
     const { user, logout } = useAuthStore();
     const navigate = useNavigate();
 
+    const handleLogout = () => {
+        logout();
+        navigate('/');
+    };
+
     return (
         <nav className="navbar">
-            {!user && (
-                <Button text="Login" onClick={() => navigate('/auth')} />
+            {!user ? (
+                // Visa när användaren INTE är inloggad
+                <div className="nav-guest">
+                    <Button text="Login" onClick={() => navigate('/auth')} />
+                </div>
+            ) : (
+                // Visa när användaren ÄR inloggad
+                <div className="nav-authenticated">
+                    <div className="nav-left">
+                        <span className="welcome-text">Välkommen, {user.username || user.name}!</span>
+                    </div>
+                    <div className="nav-right">
+                        <Button text="Home" onClick={() => navigate('/')} />
+                        <Button text="MY Notes" onClick={() => navigate('/notes')} />
+                        <Button text="Logout" onClick={handleLogout} />
+                    </div>
+                </div>
             )}
-
-            {user?.role === 'ADMIN' && (
-                <Button text="Logout" onClick={logout} />
-            )}
-
-            {
-                user?.role === 'GUEST' && (
-                    <>
-                        <Button text="Search" onClick={() => navigate('/booking')} />
-                        <Button text="My bookings" onClick={() => navigate('/bookings')} />
-                        <Button text="Logout" onClick={logout} />
-                    </>
-                )
-            }
         </nav>
     )
 }

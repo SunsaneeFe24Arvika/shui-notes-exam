@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './registerForm.css';
-import { registerApi } from '../../api/auth';
+import { apiRegister } from '../../api/auth';
 
 const RegisterForm = ({ toggleForm }) => {
     const usernameRef = useRef();
@@ -11,11 +11,11 @@ const RegisterForm = ({ toggleForm }) => {
 
     const registerUser = async (e) => {
         e.preventDefault();
-        const result = await registerApi({
+        const result = await apiRegister({
             username : usernameRef.current.value,
             password : passwordRef.current.value,
             email : emailRef.current.value,
-            role : 'GUEST'
+            
         });
 
         if(result.status === 201) {
