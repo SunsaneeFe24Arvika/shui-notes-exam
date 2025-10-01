@@ -14,13 +14,13 @@ provider:
 functions:
 # AUTH
   RegisterUser:
-    handler: funcktions/auth/RegisterUser/index.handler
+    handler: functions/auth/RegisterUser/index.handler
     events:
       - httpApi:
           path: /api/auth/register
           method: POST
   LoginUser:
-    handler: funcktions/auth/LoginUser/index.handler
+    handler: functions/auth/LoginUser/index.handler
     events:
       - httpApi:
           path: /api/auth/login
@@ -28,32 +28,32 @@ functions:
 
 # NOTES
   PostNotes:
-    handler: funcktions/notes/PostNote/index.handler
+    handler: functions/notes/PostNote/index.handler
     events:
       - httpApi:
           path: /api/notes
           method: POST
   GetNotes:
-    handler: funcktions/notes/GetNotes/index.handler
+    handler: functions/notes/GetNotes/index.handler
     events:
       - httpApi:
           path: /api/notes
           method: GET
   GetNoteById:
-    handler: funcktions/notes/GetNoteById/index.handler
+    handler: functions/notes/GetNoteById/index.handler
     events:
       - httpApi:
           path: /api/notes/{id}
           method: GET
   
   EditNoteById:
-    handler: funcktions/notes/EditNoteById/index.handler
+    handler: functions/notes/EditNoteById/index.handler
     events:
       - httpApi:
           path: /api/notes/{id}
           method: PATCH
   DeleteNoteById:
-    handler: funcktions/notes/DeleteNoteById/index.handler
+    handler: functions/notes/DeleteNoteById/index.handler
     events:
       - httpApi:
           path: /api/notes/{id}
