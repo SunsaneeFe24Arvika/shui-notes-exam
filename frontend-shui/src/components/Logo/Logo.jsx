@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Logo = () => {
     return (
-        <Link to="/" className="logo">
+        <Link to="/auth" className="logo">
             <img src={ logo } alt="logotype" className="logo__img" />
         </Link>
     )

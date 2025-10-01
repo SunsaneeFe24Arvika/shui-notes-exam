@@ -8,6 +8,7 @@ const HomePage = () => {
     return (
         <section className="home-page">
             <Logo />
+            
         </section>
     )
 }

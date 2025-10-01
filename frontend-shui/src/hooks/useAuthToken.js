@@ -15,3 +15,4 @@ export const useAuthToken = (key = "authToken") => {
 
     return { token, setToken };
 };
+
