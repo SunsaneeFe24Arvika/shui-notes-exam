@@ -53,6 +53,44 @@ export const getAllNotes = async (token) => {
     }
 }
 
+export const getNoteById = async (id, token) => {
+    try {
+        console.log('API call - ID:', id, 'Token exists:', !!token); // Debug
+        
+        const response = await axios.get(
+            `https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+            {
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        console.log('Raw API response:', response.data); // Debug
+
+        if (response.status === 200) {
+            return {
+                success: true,
+                data: response.data // eller response.data.note om API:et returnerar nested data
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Failed to fetch note'
+            };
+        }
+    } catch (error) {
+        console.error('getNoteById API Error:', error);
+        console.error('Error response:', error.response?.data); // Debug
+        return {
+            success: false,
+            message: error.response?.data?.message || error.message || 'Failed to fetch note'
+        };
+    }
+};
+
+
 export const getNotesByUsername = async (username, token) => {
     const response = await getAllNotes(token);
     
