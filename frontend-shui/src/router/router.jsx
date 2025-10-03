@@ -3,6 +3,7 @@ import AuthPage from "../pages/AuthPage/AuthPage";
 import HomePage from "../pages/HomePage/HomePage";
 import NotesPage from "../pages/NotesPage/NotesPage";
 import PostPage from "../pages/PostPage/PostPage";
+import NoteDetailsPage from "../pages/NoteDetailsPage/NoteDetailsPage";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 
 
@@ -33,14 +34,14 @@ export const router = createBrowserRouter([
             </ProtectedRoute>
         )
     },
-    // {
-    //     path: '/profile',  
-    //     element: (
-    //         <ProtectedRoute>
-    //             <ProfilePage />
-    //         </ProtectedRoute>
-    //     )
-    // },
+    {
+        path: '/notes/:id',  
+        element: (
+            <ProtectedRoute>
+                <NoteDetailsPage />
+            </ProtectedRoute>
+        )
+    },
     {
         path: '*',
         element: <div>Page not found</div>
