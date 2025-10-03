@@ -72,7 +72,11 @@ const LoginForm = ({ toggleForm }) => {
             {error && <div className="form__error">{error}</div>}
             <label className="form__label">
                 Username:
-                <input className="form__input" type="text" ref={usernameRef} required />
+                <div className="username-input-container"> 
+                    <input className="form__input" type="text" ref={usernameRef} required 
+                    />
+                    <i className="fa-solid fa-user"></i> 
+                </div>
             </label>
             <label className="form__label">
                 Password:
@@ -89,7 +93,7 @@ const LoginForm = ({ toggleForm }) => {
                     ></i>
                 </div>
             </label>
-            <button type="submit" disabled={isLoading} className="form__button">
+            <button type="submit" disabled={isLoading} className="login-form__btn">
                 {isLoading ? 'Logging in...' : 'Login'}
             </button>
             <p className="form__text">No account? <span onClick={ () => toggleForm('REGISTER') } className="form__link">Sign up</span> to register.</p>
