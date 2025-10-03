@@ -9,17 +9,15 @@
   --content-font: "Combo", system-ui;
   --decorate-font: "Ribeye", serif;
   --button-font: "Notable", sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #40696A;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --copper: #B78338;
+  --chestnut: #915C4C;
+  --faded-jade: #40686A;
+  --tamarind: #2F1812;
+  --cool-mint: #9BCFB8;
+  --succulent: #7fb174;
+  --juniper: #689C97;
+  --brunswick: #072A24;
+  
 }
 
 a {
@@ -37,11 +35,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--faded-jade);
 }
 
 h1 {
+  font-family: var(--title-font);
   font-size: 3.2em;
   line-height: 1.1;
+  color: var(--tamarind);
 }
 
 button {
@@ -51,12 +52,12 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--copper);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--chestnut);
 }
 button:focus,
 button:focus-visible {

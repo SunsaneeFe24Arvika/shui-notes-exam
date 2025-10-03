@@ -1,24 +1,38 @@
 import axios from 'axios';
 
 export const createNote = async (data, token) => {
-    const response = await axios.post('https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes',
-        data,
-        {
-            headers : {
-                Authorization : token,
-                'Content-Type' : 'application/json'
+    try {
+        const response = await axios.post(
+            'https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes',
+            data,
+            {
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json'
+                }
             }
-        }
-    )
-    .then(response => { return response; })
-    .catch(error => { return error; });
+        );
 
-    if(response.status === 200) {
-        return response;
-    } else {
-        return response.response ? response.response.data.message : response.data.message;
+        if (response.status === 200 || response.status === 201) {
+            return {
+                success: true,
+                data: response.data
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Failed to create note'
+            };
+        }
+    } catch (error) {
+        console.error('API Error:', error);
+        return {
+            success: false,
+            message: error.response?.data?.message || error.message || 'Failed to create note'
+        };
     }
 }
+
 
 export const getAllNotes = async (token) => {
     const response = await axios.get('https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes',

@@ -26,9 +26,12 @@ const NavBar = () => {
                     <div className="nav-left">
                         <span className="welcome-text">Välkommen, {user.username || user.name}!</span>
                     </div>
-                    <div className="nav-right">
+                    <div className="nav-menu">
                         <Button text="Home" onClick={() => navigate('/')} />
-                        <Button text="MY Notes" onClick={() => navigate('/notes')} />
+                        <Button text="New Post" onClick={() => navigate('/create-note')} />
+                        <Button text="Profile" onClick={() => navigate('/profile')} />
+                    </div>
+                    <div className="nav-right">
                         <Button text="Logout" onClick={handleLogout} />
                     </div>
                 </div>
