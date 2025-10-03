@@ -4,8 +4,12 @@
     width: 100%;
 }
 
+
 .form__input--with-icon {
-    padding-right: 40px; /* Gör plats för ikonen */
+    padding-right: 40px; 
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
 }
 
 .password-toggle-icon {
@@ -14,18 +18,18 @@
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: #666;
+    color: #222121;
     font-size: 16px;
     transition: color 0.2s ease;
-    z-index: 1;
+    z-index: 10;
 }
 
 .password-toggle-icon:hover {
     color: #333;
 }
 
-/* Se till att input har samma höjd som vanligt */
 .form__input {
     width: 100%;
+    height: 40px;
     box-sizing: border-box;
 }

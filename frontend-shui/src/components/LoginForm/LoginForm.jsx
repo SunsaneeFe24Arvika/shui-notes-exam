@@ -23,6 +23,10 @@ const LoginForm = ({ toggleForm }) => {
 
     const loginUser = async (e) => {
         e.preventDefault();
+        console.log('🔍 Login attempt started');
+        console.log('Username:', usernameRef.current.value);
+        console.log('Password length:', passwordRef.current.value.length);
+
         setError('');
         // Validering
         if (!usernameRef.current.value || !passwordRef.current.value) {
@@ -31,26 +35,36 @@ const LoginForm = ({ toggleForm }) => {
         }
         
         setIsLoading(true);
-        try {
-            const result = await apiLogin({
+    try {
+        console.log('🌐 Calling apiLogin...');
+        const result = await apiLogin({
+            username : usernameRef.current.value,
+            password : passwordRef.current.value
+        });
+        
+        console.log('📊 API result:', result);
+        console.log('🎫 Token:', result.data?.token);
+        
+        if (result.data?.token) {
+            console.log('✅ Login successful, calling store login...');
+            login({
                 username : usernameRef.current.value,
-                password : passwordRef.current.value
+                token : result.data.token
             });
-            
-            if (result.data?.token) {
-                login({
-                    username : usernameRef.current.value,
-                    token : result.data.token
-                });
-                setToken(result.data.token);
-                navigate('/notes');
-            }
-        } catch (err) {
-            setError('Login failed. Please check your credentials.');
-        } finally {
-            setIsLoading(false);
+            setToken(result.data.token);
+            console.log('🚀 Navigating to /notes');
+            navigate('/notes');
+        } else {
+            console.log('❌ No token in response');
+            setError('Login failed - no token received');
         }
+    } catch (err) {
+        console.error('💥 Login error:', err);
+        setError('Login failed. Please check your credentials.');
+    } finally {
+        setIsLoading(false);
     }
+}
 
     return (
         <form className="form" onSubmit={loginUser}>

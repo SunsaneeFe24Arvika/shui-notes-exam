@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AuthPage from "../pages/AuthPage/AuthPage";
 import HomePage from "../pages/HomePage/HomePage";
 import NotesPage from "../pages/NotesPage/NotesPage";
+import PostPage from "../pages/PostPage/PostPage";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 
 
@@ -24,11 +25,19 @@ export const router = createBrowserRouter([
             </ProtectedRoute>
         )
     },
+    {
+        path: '/create-note',
+        element: (
+            <ProtectedRoute>
+                <PostPage />
+            </ProtectedRoute>
+        )
+    },
     // {
-    //     path: '/notes/:id',
+    //     path: '/profile',  
     //     element: (
     //         <ProtectedRoute>
-    //             <NoteDetailPage />
+    //             <ProfilePage />
     //         </ProtectedRoute>
     //     )
     // },
