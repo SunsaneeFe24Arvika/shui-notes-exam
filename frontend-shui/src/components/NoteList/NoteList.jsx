@@ -73,7 +73,7 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect }) => { // Lägg till p
                         >
                             <div className="notes__header">
                                 <h3 className="notes__creator">
-                                    By: {note.username || 'Unknown User'}
+                                    {note.username || 'Unknown User'}
                                 </h3>
                                 <p className="notes__date">
                                     {new Date(note.createdAt).toLocaleDateString()}
@@ -87,7 +87,7 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect }) => { // Lägg till p
                                 }
                             </p>
                             <div className="notes__actions">
-                                <span className="view-hint">Click to view details →</span>
+                                <span className="view-hint">Edit your note →</span>
                             </div>
                         </li>
                     )

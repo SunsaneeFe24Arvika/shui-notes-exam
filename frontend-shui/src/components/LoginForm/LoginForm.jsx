@@ -25,7 +25,7 @@ const LoginForm = ({ toggleForm }) => {
         e.preventDefault();
         console.log('🔍 Login attempt started');
         console.log('Username:', usernameRef.current.value);
-        console.log('Password length:', passwordRef.current.value.length);
+        
 
         setError('');
         // Validering
@@ -59,8 +59,15 @@ const LoginForm = ({ toggleForm }) => {
             setError('Login failed - no token received');
         }
     } catch (err) {
-        console.error('💥 Login error:', err);
+    console.error('💥 Login error:', err);
+    // Mer specifik felhantering baserat på fel typ
+    if (err.response?.status === 401) {
+        setError('Invalid username or password');
+    } else if (err.response?.status >= 500) {
+        setError('Server error. Please try again later.');
+    } else {
         setError('Login failed. Please check your credentials.');
+    }
     } finally {
         setIsLoading(false);
     }
@@ -69,7 +76,8 @@ const LoginForm = ({ toggleForm }) => {
     return (
         <form className="form" onSubmit={loginUser}>
             <h1 className="form__title">Login</h1>
-            {error && <div className="form__error">{error}</div>}
+            {error && <div id="login-error" className="form__error" role="alert">{error}</div>}
+                
             <label className="form__label">
                 Username:
                 <div className="username-input-container"> 
