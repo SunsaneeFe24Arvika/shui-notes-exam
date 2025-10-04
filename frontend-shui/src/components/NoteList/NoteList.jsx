@@ -86,9 +86,7 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect }) => { // Lägg till p
                                     : note.content
                                 }
                             </p>
-                            <div className="notes__actions">
-                                <span className="view-hint">Edit your note →</span>
-                            </div>
+                            
                         </li>
                     )
                 })

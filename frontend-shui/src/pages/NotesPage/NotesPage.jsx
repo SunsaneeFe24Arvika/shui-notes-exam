@@ -4,7 +4,7 @@ import NoteList from '../../components/NoteList/NoteList';
 import { useAuthToken } from '../../hooks/useAuthToken';
 import { getAllNotes } from '../../api/notes';
 import './notesPage.css';
-import NavBar from '../../components/NavBar/NavBar';
+import Footer from '../../components/Footer/Footer';
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
@@ -72,7 +72,7 @@ const NotesPage = () => {
                 />
             </div>
             
-            <NavBar />
+            <Footer />
         </section>
     );
 };
