@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NoteList from '../../components/NoteList/NoteList';
 import { useAuthToken } from '../../hooks/useAuthToken';
@@ -8,6 +8,7 @@ import NavBar from '../../components/NavBar/NavBar';
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
+    const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     const { token } = useAuthToken();
@@ -15,7 +16,8 @@ const NotesPage = () => {
 
     useEffect(() => {
         if (token) {
-            fetchNotes();
+            fetchNotes(); // Hämta anteckningar
+            
         }
     }, [token]);
 
@@ -37,6 +39,7 @@ const NotesPage = () => {
             setLoading(false);
         }
     };
+
 
     const handleNoteSelect = (noteId) => {
         navigate(`/notes/${noteId}`);

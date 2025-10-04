@@ -3,6 +3,7 @@ import AuthPage from "../pages/AuthPage/AuthPage";
 import HomePage from "../pages/HomePage/HomePage";
 import NotesPage from "../pages/NotesPage/NotesPage";
 import PostPage from "../pages/PostPage/PostPage";
+//import EditPage from "../pages/EditPage/EditPage";
 import NoteDetailsPage from "../pages/NoteDetailsPage/NoteDetailsPage";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 

@@ -28,8 +28,8 @@ const NavBar = () => {
                     </div>
                     <div className="nav-menu">
                         <Button text="Home" onClick={() => navigate('/')} />
-                        <Button text="New Post" onClick={() => navigate('/create-note')} />
-                        <Button text="Profile" onClick={() => navigate('/profile')} />
+                        <Button text="+" onClick={() => navigate('/create-note')} />
+                        <Button text="My Note" onClick={() => navigate('/notes${user}')} />
                     </div>
                     <div className="nav-right">
                         <Button text="Logout" onClick={handleLogout} />
