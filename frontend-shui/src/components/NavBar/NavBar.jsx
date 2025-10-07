@@ -1,43 +1,83 @@
-import React from 'react'
-import Button from '../Button/Button';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import './navBar.css';
 import { useAuthStore } from '../../stores/useAuthStore';
+import menuIcon from '../../assets/burger-menu.png';
+import pencilIcon from '../../assets/pencil.svg';
+import logoutIcon from '../../assets/log-out.png';
+import backIcon from '../../assets/left.png';
+
 
 const NavBar = () => {
+    const [isOpen, setIsOpen] = useState(false)
     const { user, logout } = useAuthStore();
+    const location = useLocation();
+    const { token } = useAuthStore();
     const navigate = useNavigate();
 
-    const handleLogout = () => {
+    const handlerBackClick = () => {
+            if (window.history.length > 2) {
+                navigate(-1)
+            } else if (location.pathname.startsWith('/notes/')) { 
+                navigate('/notes');
+            }
+        }
+
+    const handlerNewPost = () => {
+        navigate('/create-note'); 
+    };
+    
+
+    const handlerLogout = () => {
         logout();
         navigate('/');
     };
 
+    
     return (
-        <nav className="navbar">
-            {!user ? (
-                // Visa när användaren INTE är inloggad
-                <div className="nav-guest">
-                    <Button text="Login" onClick={() => navigate('/auth')} />
-                </div>
-            ) : (
-                // Visa när användaren ÄR inloggad
-                <div className="nav-authenticated">
-                    <div className="nav-left">
-                        <span className="welcome-text">Välkommen, {user.username || user.name}!</span>
-                    </div>
-                    <div className="nav-menu">
-                        <Button text="Home" onClick={() => navigate('/')} />
-                        <Button text="+" onClick={() => navigate('/create-note')} />
-                        <Button text="My Note" onClick={() => navigate('/notes${user}')} />
-                    </div>
-                    <div className="nav-right">
-                        <Button text="Logout" onClick={handleLogout} />
-                    </div>
+        <>
+        {isOpen && <div className="fab-overlay" onClick={() => setIsOpen(false)} />}
+        <div className="floating-action-menu">
+            <div className="fab-main">
+                <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="fab-toggle-custom"
+                data-tooltip="Menu"
+            >
+                <img src={menuIcon} alt="Menu" className='fab-icon' />
+            </button>
+            </div>
+            
+            {isOpen && (
+                <div className="fab-actions">
+                    <button 
+                    onClick={handlerBackClick}
+                    className="fab-button-custom secondary"
+                    data-tooltip="Go back"
+                    >
+                        <img src={backIcon} alt="Back" className='fab-icon' />
+                    </button>
+                    <button 
+                    onClick={handlerNewPost}
+                    className="fab-button-custom secondary"
+                    data-tooltip="New Post"
+                    >
+                        <img src={pencilIcon} alt="New Post" className='fab-icon' />
+                    </button>
+                    <button 
+                        onClick={handlerLogout}
+                        className="fab-button-custom secondary"
+                        data-tooltip="Exist"
+                    >
+                        <img src={logoutIcon} alt="Log out" className='fab-icon' />
+                    </button>
                 </div>
             )}
-        </nav>
-    )
+        </div>
+    </>
+)
+
 }
 
 export default NavBar;
