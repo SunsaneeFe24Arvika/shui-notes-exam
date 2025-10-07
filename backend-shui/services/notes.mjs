@@ -44,44 +44,17 @@ export const addNote = async (noteData) => {
     }
 };
 
-// Funktion som söker anteckningar baserat på titel (använder GSI)
-export const getNotesByTitle = async (title) => {
+// Funktion för att hämta och sortera anteckningar för en användare
+export const getSortedNotesForUser = async (username, sortBy = 'createdAt', sortOrder = 'desc') => {
+    console.log(`Getting sorted notes for user: ${username}, sortBy: ${sortBy}, order: ${sortOrder}`);
+    
+    // Hämta alla anteckningar för användaren
     const command = new QueryCommand({
         TableName: 'shui-api',
-        IndexName: 'GSI1', // Du behöver skapa detta GSI index
-        KeyConditionExpression: 'GSI1PK = :title',
+        KeyConditionExpression: 'PK = :pk AND begins_with(SK, :sk)',
         ExpressionAttributeValues: marshall({
-            ':title': title
-        }),
-        ScanIndexForward: false // Nyaste först (baserat på createdAt)
-    });
-
-    try {
-        const { Items } = await client.send(command);
-        
-        if (!Items || Items.length === 0) {
-            return { success: true, notes: [] };
-        }
-
-        const notes = Items.map(item => unmarshall(item));
-        return { success: true, notes };
-    } catch (error) {
-        console.log('ERROR in getNotesByTitle:', error.message);
-        return { success: false, message: error.message };
-    }
-};
-
-// Funktion som söker anteckningar med partiell titel (innehåller sökterm)
-export const searchNotesByTitle = async (searchTerm) => {
-    const command = new QueryCommand({
-        TableName: 'shui-api',
-        FilterExpression: 'begins_with(SK, :sk) AND contains(#title, :searchTerm)',
-        ExpressionAttributeNames: {
-            '#title': 'title'
-        },
-        ExpressionAttributeValues: marshall({
-            ':sk': 'NOTE#',
-            ':searchTerm': searchTerm
+            ':pk': username,
+            ':sk': 'NOTE#'
         })
     });
 
@@ -92,15 +65,46 @@ export const searchNotesByTitle = async (searchTerm) => {
             return { success: true, notes: [] };
         }
 
-        const notes = Items
-            .map(item => unmarshall(item))
-            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            
+        // Konvertera DynamoDB items till vanliga objekt
+        let notes = Items.map(item => unmarshall(item));
+
+        // Sortera baserat på valt kriterium
+        notes = sortNotes(notes, sortBy, sortOrder);
+
+        console.log(`Returning ${notes.length} sorted notes for user ${username}`);
         return { success: true, notes };
     } catch (error) {
-        console.log('ERROR in searchNotesByTitle:', error.message);
+        console.log('ERROR in getSortedNotesForUser:', error.message);
         return { success: false, message: error.message };
     }
+};
+
+// Hjälpfunktion för sortering
+const sortNotes = (notes, sortBy, sortOrder) => {
+    return notes.sort((a, b) => {
+        let compareValue = 0;
+
+        switch (sortBy) {
+            case 'title':
+                compareValue = a.title.localeCompare(b.title, 'sv', { sensitivity: 'base' });
+                break;
+            case 'createdAt':
+                compareValue = new Date(a.createdAt) - new Date(b.createdAt);
+                break;
+            case 'updatedAt':
+                compareValue = new Date(a.updatedAt) - new Date(b.updatedAt);
+                break;
+            case 'content':
+                compareValue = a.content.localeCompare(b.content, 'sv', { sensitivity: 'base' });
+                break;
+            default:
+                // Default till createdAt om okänt sortBy värde
+                compareValue = new Date(a.createdAt) - new Date(b.createdAt);
+        }
+
+        // Omvänd ordning om sortOrder är 'desc'
+        return sortOrder === 'desc' ? -compareValue : compareValue;
+    });
 };
 
 // Funktion som hämtar en anteckning med username och noteId

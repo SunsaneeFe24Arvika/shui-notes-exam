@@ -57,8 +57,7 @@ export const getNoteById = async (id, token) => {
     try {
         console.log('API call - ID:', id, 'Token exists:', !!token); // Debug
         
-        const response = await axios.get(
-            `https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+        const response = await axios.get(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
             {
                 headers: {
                     Authorization: token,
@@ -72,7 +71,7 @@ export const getNoteById = async (id, token) => {
         if (response.status === 200) {
             return {
                 success: true,
-                data: response.data // eller response.data.note om API:et returnerar nested data
+                data: response.data 
             };
         } else {
             return {
@@ -89,7 +88,6 @@ export const getNoteById = async (id, token) => {
         };
     }
 };
-
 
 export const getNotesByUsername = async (username, token) => {
     const response = await getAllNotes(token);
@@ -112,25 +110,31 @@ export const getCurrentUserNotes = async (token) => {
     return await getAllNotes(token);
 }
 
-export const editYourOwnNote = async (id, data, token) => {
-    const response = await axios.patch(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
-        data,
-        {
-            headers: {
-                Authorization: token,
-                'Content-Type': 'application/json'
-            }
-        }
-    )
-    .then(response => { return response; })
-    .catch(error => { return error; });
 
-    if(response.status === 200) {
-        return response;
-    } else {
-        return response.response ? response.response.data.message : response.data.message;
-    }
-}
+export const editYourOwnNote = async (id, data, token) => {
+  try {
+    const response = await axios.put(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    
+    return { success: true, data: response.data };
+  } catch (error) {
+    
+    const message = error.response
+      ? error.response.data.message
+      : error.message;
+
+    return { success: false, message };
+  }
+};
+
 
 export const deleteYourOwnNote = async (id, token) => {
     const response = await axios.delete(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,

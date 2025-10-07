@@ -4,7 +4,7 @@
     font-family: var(--content-font);
     font-size: 16px;
     font-weight: 400;
-    color: var(--tamarind);
+    color: var(--slate);
     
 }
 .form__label {
@@ -16,7 +16,7 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    background-color: var(--copper);
+    background-color: var(--slate);
     padding-right: 10px;
     border-radius: 5px;
 
@@ -29,9 +29,10 @@
     display: flex;
     justify-content: end;
     align-items: center;
-    background-color: var(--copper);
+    background-color: var(--slate);
     padding-right: 10px;
     border-radius: 5px;
+    color: var(--copper);
    
 }
 .password-toggle-icon {
@@ -52,9 +53,13 @@
     height: 40px;
     box-sizing: border-box;
     margin-top: 0.5rem;
-    background-color: var(--copper);
+    background-color: var(--slate);
     border: none;
     border-radius: 5px;
+    color: var(--sand);
+    font-size: 24px;
+    font-family: var(--content-font);
+    padding-left: 10px;
 }
 
 
@@ -73,17 +78,17 @@
     margin-left: 0.2rem;
     margin-right: 0.2rem;
     padding: 0.6em 1.2em;
-    font-size: 1em;
     font-weight: 500;
     font-family: var(--title-font);
     font-size: 24px;
-    color: var(--tamarind);
-    background-color: var(--copper);
+    color: var(--slate);
+    background-color: var(--midnight);
     cursor: pointer;
     border: none;
     border-radius: 5px;
 }
 
 .login-form__btn:hover {
-  color: var(--faded-jade);
+  color: var(--midnight);
+  background-color: var(--slate);
 }
