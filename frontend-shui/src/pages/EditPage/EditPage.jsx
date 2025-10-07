@@ -1,41 +1,79 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getNoteById } from '../../api/notes';
+import { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthToken } from '../../hooks/useAuthToken';
-import EditNote from '../../components/EditNote/EditNote';
+import { getNoteById } from '../../api/notes';
+import { editYourOwnNote } from '../../api/notes';
+import EditNote from '../../components/EditNote/EditNote'; 
+import logo from '../../assets/shui-logo.png';
+import Footer from '../../components/Footer/Footer';
 
-const EditPage = () => {
+
+function EditNotePage() {
   const { id } = useParams();
-  console.log('Editing note ID:', id);
-  
   const { token } = useAuthToken();
+  const navigate = useNavigate();
+
   const [note, setNote] = useState(null);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  
   useEffect(() => {
     const fetchNote = async () => {
-      try {
-        const response = await getNoteById(id, token);
-        setNote(response.data); // 🔹 här lägger vi anteckningen i state
-      } catch (error) {
-        console.error('Could not fetch note', error);
-      } finally {
-        setLoading(false);
+      const result = await getNoteById(id, token);
+      if (result.success) {
+        setNote(result.data.note || result.data);
+      } else {
+        setError(result.message);
       }
+      setLoading(false);
     };
-    fetchNote();
+
+    if (id && token) fetchNote();
   }, [id, token]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!note) return <p>No note found</p>;
+  
+  // const handleSave = async (updatedData) => {
+  //   const result = await editYourOwnNote(id, updatedData, token);
+  //   if (result.success) {
+  //     navigate(`/notes/${id}`); 
+  //   } else {
+  //     setError(result.message);
+  //   }
+  // };
 
-  return (
-    <EditNote
-      note={note}
-      onNoteUpdated={() => console.log('Note updated!')}
-      onCancel={() => console.log('Cancelled!')}
-    />
-  );
+  const handleSave = async (updatedData) => {
+  console.log('Data som skickas:', updatedData); // Debug log
+  console.log('Note ID:', id); // Debug log
+  console.log('Token:', token); // Debug log
+  
+  const result = await editYourOwnNote(id, updatedData, token);
+  console.log('API response:', result); // Debug log
+  
+  if (result.success) {
+    navigate(`/notes/${id}`); 
+  } else {
+    setError(result.message);
+  }
 };
 
-export default EditPage;
+  if (loading) return <p>Laddar...</p>;
+  if (error) return <p style={{ color: 'red' }}>{error}</p>;
+  if (!note) return null;
+
+  return (
+    <>
+    <figure>
+      <img src={logo} alt="shui logo" className="shui-logo" />  
+    </figure>
+    <section className='edit-page'>
+      <h1 className='page-title'>Edit your note</h1>
+      <EditNote noteData={note} onSave={handleSave} />
+    </section>
+    <Footer />
+    </>
+    
+  );
+}
+
+export default EditNotePage;

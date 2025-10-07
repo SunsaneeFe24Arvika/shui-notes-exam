@@ -1,12 +1,15 @@
 .notes__list {
     list-style: none;
+    padding: 0;
+    margin: 0;
 }
-/* Lägg till i noteList.css */
+
 .notes__item.clickable {
     cursor: pointer;
     transition: all 0.2s ease;
-    border: 1px solid #ddd;
+    background-color: var(--slate);
     border-radius: 8px;
+    border: none;
     padding: 1rem;
     margin-bottom: 1rem;
 }
@@ -14,7 +17,7 @@
 .notes__item.clickable:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transform: translateY(-2px);
-    background-color: #f8f9fa;
+    background-color: var(--chestnut);
 }
 
 .notes__item.clickable:focus {
@@ -23,12 +26,13 @@
 }
 
 .notes__title {
-    color: #007bff;
-    margin: 0.5rem 0;
+    color: var(--barley);
+    font-family: var(--decorate-font);
+    
 }
 
 .notes__item.clickable:hover .notes__title {
-    color: #0056b3;
+    color: var(--sand);
 }
 
 .notes__actions {
@@ -46,4 +50,17 @@
     text-align: center;
     padding: 2rem;
     color: #6c757d;
+}
+.notes__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family: var(--title-font);
+    color: var(--midnight);
+}
+.notes__content {
+    font-family: var(--decorate-font);
+    font-size: 16px;
+    color: var(--sand);
+
 }

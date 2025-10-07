@@ -1,5 +1,7 @@
-.notelist-page {
+.noteslist-page {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
+    
 }

@@ -45,10 +45,18 @@ functions:
       - httpApi:
           path: /api/notes/{id}
           method: GET
-  
+  GetNotesByUser:
+    handler: functions/notes/GetNotesByUser/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/user
+          method: GET
   EditNoteById:
     handler: functions/notes/EditNoteById/index.handler
     events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: PUT
       - httpApi:
           path: /api/notes/{id}
           method: PATCH

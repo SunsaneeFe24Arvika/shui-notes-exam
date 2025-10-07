@@ -4,6 +4,18 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 2rem;
+
+    /* position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1000;
+
+    background-color: var(--sand);
+    padding: 1rem;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);  */
 
 }
 .footer__link {
@@ -11,10 +23,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: var(--decorate-font);
+    font-family: var(--title-font);
     font-size: 16px;
-    color: var(--tamarind);
-    background-color: var(--faded-jade);
+    color: var(--slate);
+    background-color: var(--sand);
     border: none;
     cursor: pointer;
 }

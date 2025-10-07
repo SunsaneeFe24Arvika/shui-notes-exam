@@ -5,6 +5,7 @@ import { useAuthToken } from '../../hooks/useAuthToken';
 import { getAllNotes } from '../../api/notes';
 import './notesPage.css';
 import Footer from '../../components/Footer/Footer';
+import Header from '../../components/Header/Header';
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
@@ -53,6 +54,7 @@ const NotesPage = () => {
     
     return (
         <section className='noteslist-page'>
+            <Header />
             <h1 className='page-title'>NOTES</h1>
             
             {error && (

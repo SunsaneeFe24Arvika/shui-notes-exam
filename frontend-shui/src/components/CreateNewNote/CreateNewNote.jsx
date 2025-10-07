@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuthToken } from '../../hooks/useAuthToken';
 import { createNote } from "../../api/notes";
-//import './createNewNote.css';
+import './createNewNote.css';
 
 const CreateNewNote = ({ onNoteCreated }) => {
     const [title, setTitle] = useState('');
@@ -52,7 +52,7 @@ const CreateNewNote = ({ onNoteCreated }) => {
 
     return (
         <div className="create-note">
-            <h2 className="create-note__title">Create New Note</h2>
+            <h2 className="create-note__title">Share what is in your mind!</h2>
             
             {error && <div className="create-note__error">{error}</div>}
             
@@ -79,7 +79,7 @@ const CreateNewNote = ({ onNoteCreated }) => {
                         onChange={(e) => setContent(e.target.value)}
                         className="create-note__textarea"
                         placeholder="Enter note content"
-                        rows="5"
+                        rows="20"
                         disabled={loading}
                         required
                     />
