@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import CreateNewNote from "../../components/CreateNewNote/CreateNewNote";
-import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
+import NavBar from "../../components/NavBar/NavBar";
 import './postPage.css';
 
 const PostPage = () => {
@@ -14,11 +15,12 @@ const PostPage = () => {
 
     return (
         <>
+        <Header />
         <section className="post-page">
+            <NavBar />
             <h1 className="page-title">Create New Note</h1>
             <CreateNewNote onNoteCreated={handleNoteCreated} />
         </section>
-        <Footer />
         </>
         
     );

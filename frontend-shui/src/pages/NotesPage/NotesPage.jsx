@@ -6,6 +6,7 @@ import { getAllNotes } from '../../api/notes';
 import './notesPage.css';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
+import NavBar from '../../components/NavBar/NavBar';
 
 const NotesPage = () => {
     const [notes, setNotes] = useState([]);
@@ -55,7 +56,8 @@ const NotesPage = () => {
     return (
         <section className='noteslist-page'>
             <Header />
-            <h1 className='page-title'>NOTES</h1>
+            <NavBar />
+            <h1 className='page-title'>NOTE</h1>
             
             {error && (
                 <div className="error-message">
@@ -74,7 +76,7 @@ const NotesPage = () => {
                 />
             </div>
             
-            <Footer />
+            
         </section>
     );
 };
