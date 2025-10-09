@@ -6,7 +6,7 @@ import PostPage from "../pages/PostPage/PostPage";
 import EditPage from "../pages/EditPage/EditPage";
 import NoteDetailsPage from "../pages/NoteDetailsPage/NoteDetailsPage";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
-
+import DeletePage from "../pages/DeletePage/DeletePage";
 
 
 export const router = createBrowserRouter([
@@ -34,20 +34,28 @@ export const router = createBrowserRouter([
                 <PostPage />
             </ProtectedRoute>
         )
+    }, 
+    {
+        path: '/notes/edit/:id',
+        element: (
+            <ProtectedRoute>
+                <EditPage />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/notes/delete/:id',
+        element: (
+            <ProtectedRoute>
+                <DeletePage />
+            </ProtectedRoute>
+        )
     },
     {
         path: '/notes/:id',  
         element: (
             <ProtectedRoute>
                 <NoteDetailsPage />
-            </ProtectedRoute>
-        )
-    },
-    {
-        path: '/notes/edit/:id',
-        element: (
-            <ProtectedRoute>
-                <EditPage />
             </ProtectedRoute>
         )
     },

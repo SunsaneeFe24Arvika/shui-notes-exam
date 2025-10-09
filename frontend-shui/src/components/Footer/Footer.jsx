@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import FooterItem from "./FooterItem";
 import { useLocation } from "react-router-dom";
 import { useAuthToken } from '../../hooks/useAuthToken';
-import { deleteYourOwnNote } from '../../api/notes';
+import { useParams } from 'react-router-dom';
 import { IoIosAddCircle } from "react-icons/io";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosAlbums } from "react-icons/io";
@@ -12,6 +12,7 @@ import './footer.css';
 
 
 const Footer = () => {
+    const { id } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
     const { token } = useAuthToken();
@@ -29,30 +30,26 @@ const Footer = () => {
 
     const handlerEditClick = () => {
         // Antag att du vill gå till edit-sidan för den aktuella noten
-        const noteId = location.pathname.split('/notes/')[1];
-        navigate(`/notes/edit/${noteId}`);
+        const id = location.pathname.split('/notes/')[1];
+        navigate(`/notes/edit/${id}`);
     }
 
-    const handlerDeleteClick = async () => {
-        const noteId = location.pathname.split('/notes/')[1];
-        navigate(`/notes/${noteId}/delete`);
-        
-        if (!token || !noteId) {
-            alert('Kunde inte radera anteckningen. Försök igen.');
-            return;
-        }
-
-        const confirmDelete = window.confirm('Är du säker på att du vill radera denna anteckning?');
-        if (!confirmDelete) return;
-
-        try {
-            await deleteYourOwnNote(token, noteId);
-            navigate('/notes');
-        } catch (err) {
-            alert('Kunde inte radera anteckningen. Försök igen.');
-            console.error('Error deleting note:', err);
-        }
+    const handlerDeleteNote = async () => {
+    const id = location.pathname.split('/notes/')[1];
+    
+    if (!token) {
+        alert('Du är inte inloggad. Logga in för att radera anteckningen.');
+        return;
     }
+    
+    if (!id) {
+        alert('Ingen giltig anteckning att radera.');
+        return;
+    }
+
+    navigate(`/notes/delete/${id}`);
+}
+
 
     const footerItem = [
         {
@@ -67,7 +64,7 @@ const Footer = () => {
         },
         {
             name: isNoteDetailsPage ? "delete" : "account",
-            action: isNoteDetailsPage ? handlerDeleteClick : () => navigate('/notes'),
+            action: isNoteDetailsPage ? handlerDeleteNote : () => navigate('/notes'),
             icon: isNoteDetailsPage ? <IoIosTrash /> : <IoIosAlbums />
         }
     ];

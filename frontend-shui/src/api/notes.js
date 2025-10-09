@@ -57,7 +57,7 @@ export const getNoteById = async (id, token) => {
     try {
         console.log('API call - ID:', id, 'Token exists:', !!token); // Debug
         
-        const response = await axios.get(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+        const response = await axios.get(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/` + id,
             {
                 headers: {
                     Authorization: token,
@@ -113,7 +113,7 @@ export const getCurrentUserNotes = async (token) => {
 
 export const editYourOwnNote = async (id, data, token) => {
   try {
-    const response = await axios.put(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+    const response = await axios.put(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/` + id,
       data,
       {
         headers: {
@@ -137,20 +137,34 @@ export const editYourOwnNote = async (id, data, token) => {
 
 
 export const deleteYourOwnNote = async (id, token) => {
-    const response = await axios.delete(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
-        {
-            headers : {
-                Authorization : token,
-                'Content-Type' : 'application/json'
+    try {
+        const response = await axios.delete(
+            `https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+            {
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json'
+                }
             }
-        }
-    )
-    .then(response => { return response; })
-    .catch(error => { return error; });
+        );
 
-    if(response.status === 200) {
-        return response;
-    } else {
-        return response.response ? response.response.data.message : response.data.message;
+        if (response.status === 200) {
+            return {
+                success: true,
+                data: response.data,
+                message: response.data.message || 'Note deleted successfully'
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Failed to delete note'
+            };
+        }
+    } catch (error) {
+        console.error('Delete note API Error:', error);
+        return {
+            success: false,
+            message: error.response?.data?.message || error.message || 'Failed to delete note'
+        };
     }
-}
+};
