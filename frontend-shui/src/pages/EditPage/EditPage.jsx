@@ -51,7 +51,7 @@ function EditNotePage() {
   console.log('API response:', result); // Debug log
   
   if (result.success) {
-    navigate(`/notes/${id}`); 
+    navigate(`/notes`); 
   } else {
     setError(result.message);
   }
