@@ -43,20 +43,3 @@ export const apiRegister = async (data) => {
     }
 }
 
-// export const getUserProfile = async (token) => {
-//     try {
-//         const response = await fetch(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/user/profile`, {
-//             method: 'GET',
-//             headers: {
-//                 'Authorization': `Bearer ${token}`,
-//                 'Content-Type': 'application/json',
-//             },
-//         });
-        
-//         const data = await response.json();
-//         return { status: response.status, data };
-//     } catch (error) {
-//         console.error('Error getting user profile:', error);
-//         throw error;
-//     }
-// };

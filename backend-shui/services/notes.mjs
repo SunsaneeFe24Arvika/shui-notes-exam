@@ -272,15 +272,13 @@ export const updateNoteById = async (noteId, updates, requestingUsername) => {
     }
 };
 
-
-
 // Secure delete with ownership check only
 export const deleteNoteById = async (noteId, requestingUsername) => {
     // First, get the existing note to check if it exists
-    const existingNote = await findNoteById(noteId); // Use findNoteById since we don't have username
+    const existingNote = await findNoteById(noteId); 
     
     if (!existingNote.success) {
-        return existingNote; // Return the error (note not found)
+        return existingNote; 
     }
 
     // Authorization check: Users can only delete their own notes
@@ -294,8 +292,8 @@ export const deleteNoteById = async (noteId, requestingUsername) => {
     const command = new DeleteItemCommand({
         TableName: 'shui-api',
         Key: marshall({
-            PK: existingNote.note.username, // Use the note's username
-            SK: `NOTE#${noteId}`           // Use the noteId
+            PK: existingNote.note.username, 
+            SK: `NOTE#${noteId}`           
         })
     });
 

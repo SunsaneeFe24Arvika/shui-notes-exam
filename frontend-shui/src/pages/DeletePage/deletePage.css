@@ -1,6 +1,6 @@
 .delete-page {
     min-height: 100vh;
-    padding: 2rem 1rem;
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,10 +17,11 @@
 }
 
 .delete-page__title {
+    font-family: var(--title-font);
     text-align: center;
-    color: #333;
+    color: var(--sand);
     margin-bottom: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 2rem;
 }
 
 .delete-page__loading {
@@ -49,9 +50,14 @@
 }
 
 .delete-page__note-preview {
+    font-family: var(--content-font);
+    font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
 
+.delete-page__note-preview h3{ 
+    color: var(--sand);
+}
 .delete-page__note {
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -61,6 +67,8 @@
 }
 
 .delete-page__note h4 {
+    font-size: 1.75rem;
+    font-weight: bold;
     margin: 0 0 0.5rem 0;
     color: #333;
 }
@@ -88,6 +96,7 @@
     margin: 0;
     color: #856404;
     font-weight: 500;
+    font-family: var(--title-font);
 }
 
 .delete-page__actions {
@@ -112,21 +121,23 @@
 }
 
 .delete-page__button--danger {
+    font-family: var(--title-font);
     background-color: #dc3545;
     color: white;
 }
 
 .delete-page__button--danger:hover:not(:disabled) {
-    background-color: #c82333;
+    background-color: var(--midnight);
 }
 
 .delete-page__button--secondary {
-    background-color: #6c757d;
+    font-family: var(--title-font);
+    background-color: var(--midnight);
     color: white;
 }
 
 .delete-page__button--secondary:hover:not(:disabled) {
-    background-color: #5a6268;
+    background-color: #dc3545;
 }
 
 @media (min-width: 576px) {

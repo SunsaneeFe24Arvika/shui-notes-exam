@@ -139,7 +139,7 @@ export const editYourOwnNote = async (id, data, token) => {
 export const deleteYourOwnNote = async (id, token) => {
     try {
         const response = await axios.delete(
-            `https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/${id}`,
+            `https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/` + id,
             {
                 headers: {
                     Authorization: token,

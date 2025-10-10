@@ -21,6 +21,7 @@ const NotesPage = () => {
         <section className="noteslist-page">
             <Header />
             <NavBar />
+            
             <h1 className="page-title">My Notes</h1>
 
             <div className="notes-container">

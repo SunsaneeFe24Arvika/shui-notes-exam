@@ -1,8 +1,5 @@
 
-
-
 .create-note__field {
-    width: 350px;
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -28,15 +25,34 @@
     color: var(--barley);
     font-size: 24px;
 }
-.create-note__input, .create-note__textarea {
-    border: none;
-    border-radius: 5px;
+create-note__input {
+    min-height: 60px; 
+    resize: vertical; 
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.create-note__textarea {
+    min-height: 120px; 
+    resize: vertical; 
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
 }
 .create-note__submit {
     font-family: var(--decorate-font);
     font-size: 24px;
     font-weight: 400;
-    color: var(--slate);
+    color: var(--sand);
     border: none;
     border-radius: 5px;
     padding: 10px;
