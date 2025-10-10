@@ -1,11 +1,14 @@
-import React from 'react'
-import logo from '../../assets/shui-logo.png'; 
+import { Link } from 'react-router-dom';
+import logo from '../../assets/shui-logo.png';
 import './header.css';
 
 function Header() {
   return (
     <header className="header">
-      <img src={logo} alt="Shui Notes Logo" className="header__logo" />
+      <Link to="/">
+        <img src={logo} alt="Shui Notes Logo" className="header__logo" />
+      </Link>
+      
     </header>
   );
 }

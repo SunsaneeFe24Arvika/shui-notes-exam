@@ -45,7 +45,7 @@ const RegisterForm = ({ toggleForm }) => {
                 <input className="form__input" type="password" ref={ passwordRepeatRef } />
             </label>
             
-            <button className="form__button" onClick={ registerUser }>Register</button>
+            <button className="register__button" onClick={ registerUser }>Register</button>
             <p className="form__text">Already a member? <span onClick={ () => toggleForm('LOGIN') } className="form__link">Click here</span> to login.</p>
         </form>
     )
