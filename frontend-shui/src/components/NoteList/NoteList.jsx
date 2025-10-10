@@ -82,7 +82,6 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, d
         }
     };
 
-    if (loading) return <h2>Page is loading...</h2>;
     
     if (!notes || notes.length === 0) {
         return (

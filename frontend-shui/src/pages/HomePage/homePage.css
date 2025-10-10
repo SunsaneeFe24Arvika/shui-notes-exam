@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ultra&display=swap');
+
+
+:root {
+  --hompage: "Ultra", serif;
+  --blue: #0097b2;
+  --lilac: #9eff1f;
+  --purple: #ce6be6;
+  --dark-green: #00bf63;
+  --peach: #ffde59;
+  --orange: #ff914d;
+  --dark-blue: #1f48ff;
+  
+}
+.home-page {
+    font-family: var(--hompage);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    place-items: center;
+    margin-top: 350px;
+    cursor: pointer;
+}
+.bizzy {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 10%;
+    justify-content: space-around;
+    max-height: 100px;
+    text-align: center;
+    
+}
+@keyframes fontGrow {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(2);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.bizzy-letters {
+    
+  animation-name: fontGrow;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: top;
+  transition-timing-function: ease-in-out;
+  font-size: 50px;
+}
+
+.letter-s {
+  color: var(--purple);
+  
+}
+
+.letter-h {
+    
+  color: var(--blue);
+  animation-delay: 1s;
+}
+
+.letter-u {
+    
+  color: var(--orange);
+}
+
+.letter-i {
+    
+  color: var(--dark-green);
+  animation-delay: 1s;
+}
+
+.bizzy-B {
+  width: 350px;
+  display: flex;
+  justify-content: space-around;
+  gap: 5%;
+  
+}
+
+@keyframes fontGrowReverse {
+  0% {
+    transform: scaleY(2);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(2);
+  }
+}
+
+.bizzy-letters-B {
+  display: flex;
+  animation-name: fontGrowReverse;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  transform-origin: bottom;
+  transition-timing-function: ease-in-out;
+  font-size: 50px;
+  gap: 10%;
+  
+}
+
+.letter-N {
+  color: var(--dark-blue);
+}
+
+.letter-O {
+  color: var(--peach);
+  animation-delay: 1s;
+  font-stretch: ultra-condensed;
+}
+
+.letter-T {
+  color: var(--blue);
+}
+
+.letter-E {
+  color: var(--lilac);
+  animation-delay: 1s;
+}
+
+

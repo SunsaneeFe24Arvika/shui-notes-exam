@@ -4,11 +4,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f5f5f5;
+    background-color: var(--sand);
 }
 
 .delete-page__container {
-    background: white;
+    background: var(--slate);
     border-radius: 12px;
     padding: 2rem;
     max-width: 500px;
