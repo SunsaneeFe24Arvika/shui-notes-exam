@@ -79,7 +79,6 @@ const CreateNewNote = ({ onNoteCreated }) => {
                         onChange={(e) => setContent(e.target.value)}
                         className="create-note__textarea"
                         placeholder="Enter note content"
-                        rows="20"
                         disabled={loading}
                         required
                     />

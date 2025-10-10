@@ -71,21 +71,21 @@ const DeletePage = () => {
     return (
         <div className="delete-page">
             <div className="delete-page__container">
-                <h2 className="delete-page__title">Radera anteckning</h2>
+                <h2 className="delete-page__title">Delete your Note</h2>
                 
                 {deleteStatus === 'success' && (
                     <div className="delete-page__status delete-page__status--success">
-                        <h3>✅ Anteckningen har raderats!</h3>
-                        <p>Du kommer att omdirigeras automatiskt...</p>
+                        <h3>The note has been deleted!</h3>
+                        <p>You will be redirected automatically to the homepage.</p>
                     </div>
                 )}
                 
                 {(deleteStatus === 'error' || error) && (
                     <div className="delete-page__status delete-page__status--error">
-                        <h3>❌ Fel vid radering</h3>
-                        <p>{error || 'Kunde inte radera anteckningen. Försök igen.'}</p>
+                        <h3>Something went wrong, Try agin later!</h3>
+                        <p>{error || 'Something went wrong, Try agin later!'}</p>
                         <button onClick={handleCancel} className="delete-page__button delete-page__button--secondary">
-                            Tillbaka
+                            Back
                         </button>
                     </div>
                 )}
@@ -93,7 +93,7 @@ const DeletePage = () => {
                 {!deleteStatus && note && !error && (
                     <>
                         <div className="delete-page__note-preview">
-                            <h3>Du är på väg att radera:</h3>
+                            <h3>You are about to delete:</h3>
                             <div className="delete-page__note">
                                 <h4>{note.title}</h4>
                                 <p>{note.content?.substring(0, 100)}...</p>
@@ -102,7 +102,8 @@ const DeletePage = () => {
                         </div>
                         
                         <div className="delete-page__warning">
-                            <p>⚠️ Den här åtgärden kan inte ångras!</p>
+
+                            <p>Once you do this, you can’t reverse it.</p>
                         </div>
                         
                         <div className="delete-page__actions">
@@ -111,7 +112,7 @@ const DeletePage = () => {
                                 disabled={isDeleting}
                                 className="delete-page__button delete-page__button--danger"
                             >
-                                {isDeleting ? 'Raderar...' : 'Ja, radera anteckningen'}
+                                {isDeleting ? 'Raderar...' : 'Confirm'}
                             </button>
                             
                             <button 
@@ -119,7 +120,7 @@ const DeletePage = () => {
                                 disabled={isDeleting}
                                 className="delete-page__button delete-page__button--secondary"
                             >
-                                Avbryt
+                                Cancle
                             </button>
                         </div>
                     </>

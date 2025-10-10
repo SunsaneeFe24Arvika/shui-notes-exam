@@ -32,15 +32,6 @@ function EditNotePage() {
     if (id && token) fetchNote();
   }, [id, token]);
 
-  
-  // const handleSave = async (updatedData) => {
-  //   const result = await editYourOwnNote(id, updatedData, token);
-  //   if (result.success) {
-  //     navigate(`/notes/${id}`); 
-  //   } else {
-  //     setError(result.message);
-  //   }
-  // };
 
   const handleSave = async (updatedData) => {
   console.log('Data som skickas:', updatedData); // Debug log

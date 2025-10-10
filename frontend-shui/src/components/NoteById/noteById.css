@@ -20,6 +20,7 @@
     font-family: var(--content-font);
     color: var(--chestnut);
     font-size: 18px;
+    text-align: initial;
 }
 small {
     color: var(--tamarind);
