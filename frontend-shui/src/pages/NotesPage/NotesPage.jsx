@@ -22,7 +22,7 @@ const NotesPage = () => {
             <Header />
             <NavBar />
             
-            <h1 className="page-title">My Notes</h1>
+            <h1 className="page-title">All Notes</h1>
 
             <div className="notes-container">
                 <NoteList 
