@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthToken } from '../../hooks/useAuthToken';
 import './noteList.css';
 import { getAllNotes } from '../../api/notes';
+import { Link } from 'react-router-dom';
 
 const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, date }) => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const { token } = useAuthToken();
     const navigate = useNavigate();
-    const currentUser = useAuthToken(state => state.user);
+    
 
     useEffect(() => {
         if (propNotes) {
@@ -108,9 +109,11 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, d
                         }}
                     >
                         <div className="notes__header">
+                            <Link to={`/user/${note.PK.replace("USER#", "")}`} className='user-link'>
                             <h3 className="notes__creator">
                                 {note.username || 'Unknown User'}
                             </h3>
+                            </Link>
                             <p className="notes__date">
                                 {new Date(note.createdAt || note.attributes?.createdAt).toLocaleDateString()}
                             </p>

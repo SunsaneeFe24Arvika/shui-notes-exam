@@ -59,8 +59,8 @@
     color: var(--midnight);
 }
 .notes__content {
-    font-family: var(--decorate-font);
-    font-size: 16px;
+    font-family: var(--content-font);
+    font-size: 18px;
     color: var(--sand);
     text-align: initial;
     

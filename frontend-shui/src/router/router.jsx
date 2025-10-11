@@ -7,6 +7,7 @@ import EditPage from "../pages/EditPage/EditPage";
 import NoteDetailsPage from "../pages/NoteDetailsPage/NoteDetailsPage";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 import DeletePage from "../pages/DeletePage/DeletePage";
+import UserNotePage from "../pages/UserNotePage/UserNotePage";
 
 
 export const router = createBrowserRouter([
@@ -56,6 +57,14 @@ export const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <NoteDetailsPage />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/notes/:username',
+        element: (
+            <ProtectedRoute>
+                <UserNotePage />
             </ProtectedRoute>
         )
     },
