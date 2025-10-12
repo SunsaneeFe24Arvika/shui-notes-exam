@@ -56,7 +56,7 @@
     flex-direction: row;
     justify-content: space-between;
     font-family: var(--title-font);
-    color: var(--midnight);
+    color: var(--silver);
 }
 .notes__content {
     font-family: var(--content-font);
@@ -65,6 +65,9 @@
     text-align: initial;
     
 }
+.user-link {
+    color: var(--silver);
+}
 .user-link:hover {
-    color: var(--sand);
+    color: var(--midnight);
 }
