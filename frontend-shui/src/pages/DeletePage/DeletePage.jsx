@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useAuthToken } from '../../hooks/useAuthToken';
 import { deleteYourOwnNote, getNoteById } from '../../api/notes';
+import warningIcon from '../../assets/warning.gif';
+import Header from '../../components/Header/Header';
 import './deletePage.css';
 
 const DeletePage = () => {
@@ -69,6 +71,8 @@ const DeletePage = () => {
     }
 
     return (
+        <section className="delete-note">
+            <Header />
         <div className="delete-page">
             <div className="delete-page__container">
                 <h2 className="delete-page__title">Delete your Note</h2>
@@ -102,7 +106,7 @@ const DeletePage = () => {
                         </div>
                         
                         <div className="delete-page__warning">
-
+                            <img src={warningIcon} alt='Caution!' className='warning-icon'></img>
                             <p>Once you do this, you can’t reverse it.</p>
                         </div>
                         
@@ -127,6 +131,7 @@ const DeletePage = () => {
                 )}
             </div>
         </div>
+        </section>
     );
 };
 

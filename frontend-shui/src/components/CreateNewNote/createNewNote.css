@@ -38,7 +38,7 @@ create-note__input {
 }
 
 .create-note__textarea {
-    min-height: 120px; 
+    min-height: 150px; 
     resize: vertical; 
     font-family: inherit;
     font-size: inherit;
