@@ -45,6 +45,10 @@ function EditNotePage() {
     navigate(`/notes`); 
   } else {
     setError(result.message);
+
+    setTimeout(() => {
+      navigate(-1);
+    }, 3000);
   }
 };
 
