@@ -5,7 +5,7 @@ import './noteList.css';
 import { getAllNotes } from '../../api/notes';
 import { Link } from 'react-router-dom';
 
-const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, date }) => {
+const NoteList = ({ notes: propNotes, onNoteSelect, username, date }) => {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
     const { token } = useAuthToken();
@@ -18,7 +18,7 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, d
             setNotes(propNotes);
             setLoading(false);
         } else if (token) {
-            fetchNotes();
+            fetchNotes(); // Detta kör egen filtrering!
         }
     }, [token, propNotes, username, date]);
 
@@ -63,12 +63,6 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, d
         }
     };
 
-    // Exponera refresh-funktionen
-    const refreshNotes = () => {
-        if (token) {
-            fetchNotes();
-        }
-    };
 
     // Handler funktion för att navigera till note details
     const handleNoteClick = (noteId) => {
@@ -109,7 +103,9 @@ const NoteList = ({ type, notes: propNotes, onNoteSelect, onRefresh, username, d
                         }}
                     >
                         <div className="notes__header">
-                            <Link to={`/user/${note.PK.replace("USER#", "")}`} className='user-link'>
+                            <Link to={`/notes/user/${note.PK.replace("USER#", "")}`} 
+                                  className='user-link'
+                                  onClick={(e) => e.stopPropagation()}>
                             <h3 className="notes__creator">
                                 {note.username || 'Unknown User'}
                             </h3>
