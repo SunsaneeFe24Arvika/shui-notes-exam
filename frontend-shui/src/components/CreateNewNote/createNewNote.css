@@ -1,0 +1,64 @@
+
+.create-note__field {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    
+}
+#title {
+    height: 40px;
+    font-size: 16px;
+    font-family: var(--content-font);
+}
+#content {
+    font-size: 16px;
+    font-family: var(--content-font);
+}
+.create-note__title {
+    font-family: var(--decorate-font);
+    color: var(--midnight);
+}
+.create-note__label {
+    font-family: var(--decorate-font);
+    color: var(--barley);
+    font-size: 24px;
+}
+create-note__input {
+    min-height: 60px; 
+    resize: vertical; 
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.create-note__textarea {
+    min-height: 150px; 
+    resize: vertical; 
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    padding: 12px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.create-note__submit {
+    font-family: var(--decorate-font);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--sand);
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: var(--midnight);
+}
+.create-note__submit:hover {
+    color: var(--midnight);
+    background-color: var(--slate);
+}

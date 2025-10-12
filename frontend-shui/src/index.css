@@ -1,0 +1,49 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Federo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Federo&family=Ribeye&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Notable&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Combo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Glass+Antiqua&display=swap');
+
+:root {
+  --title-font: "Federo", sans-serif;
+  --content-font: "Combo", system-ui;
+  --decorate-font: "Glass Antiqua", cursive;
+  --button-font: "Notable", sans-serif;
+  --copper: #B78338;
+  --chestnut: #8e6558;
+  --sand: #EAD6BD;
+  --tamarind: #682e1f;
+  --barley: #C1893F;
+  --slate: #504E63;
+  --midnight: #041830;
+  --silver: #CCD3D9;
+  
+}
+
+a {
+  font-weight: 500;
+  color: #2F1812;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #915C4C;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--sand);
+}
+
+h1 {
+  font-family: var(---title-font);
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: var(--slate);
+}
+
+
+

@@ -1,0 +1,100 @@
+
+org: fe24sunper
+service: 'backend-shui'
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  httpApi:
+    cors: true
+  iam: 
+    role: arn:aws:iam::026654546931:role/BasicLambdaRole
+
+functions:
+# AUTH
+  RegisterUser:
+    handler: functions/auth/RegisterUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/register
+          method: POST
+  LoginUser:
+    handler: functions/auth/LoginUser/index.handler
+    events:
+      - httpApi:
+          path: /api/auth/login
+          method: POST
+
+# NOTES
+  PostNotes:
+    handler: functions/notes/PostNote/index.handler
+    events:
+      - httpApi:
+          path: /api/notes
+          method: POST
+  GetNotes:
+    handler: functions/notes/GetNotes/index.handler
+    events:
+      - httpApi:
+          path: /api/notes
+          method: GET
+  GetNoteById:
+    handler: functions/notes/GetNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: GET
+  GetNotesByUser:
+    handler: functions/notes/GetNotesByUser/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/user
+          method: GET
+  EditNoteById:
+    handler: functions/notes/EditNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: PUT
+      - httpApi:
+          path: /api/notes/{id}
+          method: PATCH
+  DeleteNoteById:
+    handler: functions/notes/DeleteNoteById/index.handler
+    events:
+      - httpApi:
+          path: /api/notes/{id}
+          method: DELETE
+
+resources:
+  Resources:
+    BonzaiTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: shui-api
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: PK
+            AttributeType: S
+          - AttributeName: SK
+            AttributeType: S
+          - AttributeName: GSI1PK
+            AttributeType: S
+          - AttributeName: GSI1SK
+            AttributeType: S
+        KeySchema:
+          - AttributeName: PK
+            KeyType: HASH
+          - AttributeName: SK
+            KeyType: RANGE
+        GlobalSecondaryIndexes:
+          - IndexName: GSI1
+            KeySchema:
+            - AttributeName: GSI1PK
+              KeyType: HASH
+            - AttributeName: GSI1SK
+              KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        

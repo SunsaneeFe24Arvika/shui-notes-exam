@@ -1,0 +1,29 @@
+.footer__list {
+    min-width: 350px;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 0;
+
+}
+.footer__link {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--title-font);
+    font-size: 16px;
+    color: var(--slate);
+    background-color: var(--sand);
+    border: none;
+    cursor: pointer;
+}
+.footer__link:hover {
+    color: var(--copper);
+}
+.footer-icon {
+    transform: scale(2);
+}

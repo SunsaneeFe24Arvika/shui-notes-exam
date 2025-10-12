@@ -1,0 +1,77 @@
+import { createBrowserRouter } from "react-router-dom";
+import AuthPage from "../pages/AuthPage/AuthPage";
+import HomePage from "../pages/HomePage/HomePage";
+import NotesPage from "../pages/NotesPage/NotesPage";
+import PostPage from "../pages/PostPage/PostPage";
+import EditPage from "../pages/EditPage/EditPage";
+import NoteDetailsPage from "../pages/NoteDetailsPage/NoteDetailsPage";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import DeletePage from "../pages/DeletePage/DeletePage";
+import UserNotePage from "../pages/UserNotePage/UserNotePage";
+
+
+export const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <HomePage />,
+        errorElement: <div>Something went wrong!</div>
+    },
+    {
+        path: '/auth',
+        element: <AuthPage />
+    },
+    {
+        path: '/notes',
+        element: (
+            <ProtectedRoute>
+                <NotesPage />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/create-note',
+        element: (
+            <ProtectedRoute>
+                <PostPage />
+            </ProtectedRoute>
+        )
+    }, 
+    {
+        path: '/notes/edit/:id',
+        element: (
+            <ProtectedRoute>
+                <EditPage />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/notes/delete/:id',
+        element: (
+            <ProtectedRoute>
+                <DeletePage />
+            </ProtectedRoute>
+        )
+    },
+    
+    {
+        path: '/notes/:id',  
+        element: (
+            <ProtectedRoute>
+                <NoteDetailsPage />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '/notes/user/:username',
+        element: (
+            <ProtectedRoute>
+                <UserNotePage />
+            </ProtectedRoute>
+        )
+    },
+    {
+        path: '*',
+        element: <div>Page not found</div>
+    }
+]);
+    

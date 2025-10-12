@@ -1,0 +1,95 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--content-font);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--slate);
+    
+}
+.form__label {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+.username-input-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: var(--slate);
+    padding-right: 10px;
+    border-radius: 5px;
+
+    .fa-user {
+        font-size: 16px;
+    }
+}
+
+.password-input-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    background-color: var(--slate);
+    padding-right: 10px;
+    border-radius: 5px;
+    color: var(--copper);
+   
+}
+.password-toggle-icon {
+    cursor: pointer;
+    color: #222121;
+    font-size: 16px;
+    transition: color 0.2s ease;
+    z-index: 1;
+}
+
+    .password-toggle-icon:hover {
+        color: #333;
+    }
+
+
+.form__input {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+    background-color: var(--slate);
+    border: none;
+    border-radius: 5px;
+    color: var(--sand);
+    font-size: 24px;
+    font-family: var(--content-font);
+    padding-left: 10px;
+}
+
+
+.form__link {
+    text-decoration-line: underline;
+    color: var(--succulent);
+    cursor: pointer;
+    
+}
+.form__link:hover{
+    color: var(--copper);
+}
+
+.login-form__btn {
+    margin-top: 2rem;
+    margin-left: 0.2rem;
+    margin-right: 0.2rem;
+    padding: 0.6em 1.2em;
+    font-weight: 500;
+    font-family: var(--title-font);
+    font-size: 24px;
+    color: var(--sand);
+    background-color: var(--midnight);
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+.login-form__btn:hover {
+  color: var(--midnight);
+  background-color: var(--slate);
+}

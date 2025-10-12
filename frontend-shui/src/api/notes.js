@@ -1,0 +1,170 @@
+import axios from 'axios';
+
+export const createNote = async (data, token) => {
+    try {
+        const response = await axios.post(
+            'https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes',
+            data,
+            {
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        if (response.status === 200 || response.status === 201) {
+            return {
+                success: true,
+                data: response.data
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Failed to create note'
+            };
+        }
+    } catch (error) {
+        console.error('API Error:', error);
+        return {
+            success: false,
+            message: error.response?.data?.message || error.message || 'Failed to create note'
+        };
+    }
+}
+
+
+export const getAllNotes = async (token) => {
+    const response = await axios.get('https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes',
+        {
+            headers : {
+                Authorization : token,
+                'Content-Type' : 'application/json'
+            }
+        }
+    )
+    .then(response => { return response; })
+    .catch(error => { return error; });
+
+    if(response.status === 200) {
+        return response;
+    } else {
+        return response.response ? response.response.data.message : response.data.message;
+    }
+}
+
+export const getNoteById = async (id, token) => {
+    try {
+        console.log('API call - ID:', id, 'Token exists:', !!token); // Debug
+        
+        const response = await axios.get(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/` + id,
+            {
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        console.log('Raw API response:', response.data); // Debug
+
+        if (response.status === 200) {
+            return {
+                success: true,
+                data: response.data 
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Failed to fetch note'
+            };
+        }
+    } catch (error) {
+        console.error('getNoteById API Error:', error);
+        console.error('Error response:', error.response?.data); // Debug
+        return {
+            success: false,
+            message: error.response?.data?.message || error.message || 'Failed to fetch note'
+        };
+    }
+};
+
+export const getNotesByUsername = async (username, token) => {
+    const response = await getAllNotes(token);
+    
+    if(response.status === 200) {
+        // Filtrera anteckningar baserat på username
+        const filteredNotes = response.data.filter(note => note.username === username);
+        return {
+            ...response,
+            data: filteredNotes
+        };
+    } else {
+        return response;
+    }
+}
+
+export const getCurrentUserNotes = async (token) => {
+    // Denna funktion returnerar alla anteckningar för den inloggade användaren
+    // (som redan filtreras av backend baserat på token)
+    return await getAllNotes(token);
+}
+
+
+export const editYourOwnNote = async (id, data, token) => {
+  try {
+    const response = await axios.put(`https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/` + id,
+      data,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    
+    return { success: true, data: response.data };
+  } catch (error) {
+    
+    const message = error.response
+      ? error.response.data.message
+      : error.message;
+
+    return { success: false, message };
+  }
+};
+
+
+export const deleteYourOwnNote = async (id, token) => {
+    try {
+        const response = await axios.delete(
+            `https://vcjts99zb3.execute-api.eu-north-1.amazonaws.com/api/notes/` + id,
+            {
+                headers: {
+                    Authorization: token,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        if (response.status === 200) {
+            return {
+                success: true,
+                data: response.data,
+                message: response.data.message || 'Note deleted successfully'
+            };
+        } else {
+            return {
+                success: false,
+                message: 'Failed to delete note'
+            };
+        }
+    } catch (error) {
+        console.error('Delete note API Error:', error);
+        return {
+            success: false,
+            message: error.response?.data?.message || error.message || 'Failed to delete note'
+        };
+    }
+};

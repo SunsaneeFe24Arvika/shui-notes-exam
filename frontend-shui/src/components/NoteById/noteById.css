@@ -1,0 +1,28 @@
+.note-detail__page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.note-details {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+.note-details__title {
+    font-family: var(--decorate-font);
+    color: var(--tamarind);
+    font-size: 24px;
+
+}
+
+.text-content {
+    font-family: var(--content-font);
+    color: var(--chestnut);
+    font-size: 18px;
+    text-align: initial;
+}
+small {
+    color: var(--tamarind);
+    font-family: var(--title-font);
+}
