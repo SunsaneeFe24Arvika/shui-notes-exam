@@ -1,38 +1,53 @@
-//import "./searchform.css";
-import { useNavigate } from "react-router-dom";
-import { IoSearch } from "react-icons/io5";
+import backIcon from '../../assets/left.png';
+//import './search.css';
 
-function SearchForm() {
-  const navigate = useNavigate();
-
-  const handleSearch = (event) => {
-    event.preventDefault();
-    const userInput = event.target.userInput.value.trim();
-    
-    // Kontrollera att användaren faktiskt har skrivit något
-    if (userInput) {
-      navigate(`/search/${encodeURIComponent(userInput)}`);
-    }
+const Search = ({ date, setDate, notes, setFilteredNotes }) => {
+  
+  const clearDate = () => {
+    setDate("");
+    setFilteredNotes(notes); // Visa alla notes när datum rensas
   };
 
-  return (
-    <form onSubmit={handleSearch} className="search__form">
-      <div className="search__container">
-        <IoSearch className="search-icon" />
-        <label htmlFor="search" className="sr-only">
-          Sök i anteckningar
-        </label>      
-        <input 
-          id="search" 
-          type="text" 
-          name="userInput" 
-          className="search__input" 
-          placeholder="Vad letar du efter?" 
-          required
-        />
-      </div>
-    </form>
-  );
-}
+  const handleDateChange = (e) => {
+  const selectedDate = e.target.value;
+  setDate(selectedDate);
+  
+  if (selectedDate) {
+    const filtered = notes.filter(note => {
+      const createdAt = note.createdAt || note.attributes?.createdAt;
+      
+      // Kontrollera att createdAt finns och är giltigt
+      if (!createdAt) return false;
+      
+      const noteDate = new Date(createdAt);
+      
+      // Kontrollera att datumet är giltigt
+      if (isNaN(noteDate.getTime())) return false;
+      
+      const noteDateString = noteDate.toISOString().split('T')[0];
+      return noteDateString === selectedDate;
+    });
+    setFilteredNotes(filtered);
+  } else {
+    setFilteredNotes(notes);
+  }
+};
 
-export default SearchForm;
+  return (
+    <section className="date-container">
+      <input
+        type="date"
+        value={date}
+        onChange={handleDateChange}
+        className="date-filter"
+      />
+      {date && (
+        <button onClick={clearDate} className="date-reset__button">
+          <img src={backIcon} alt="Back" className="goBack-btn" />
+        </button>
+      )}
+    </section>
+  );
+};
+
+export default Search;

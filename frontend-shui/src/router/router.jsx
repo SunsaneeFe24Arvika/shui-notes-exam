@@ -52,6 +52,7 @@ export const router = createBrowserRouter([
             </ProtectedRoute>
         )
     },
+    
     {
         path: '/notes/:id',  
         element: (
@@ -61,7 +62,7 @@ export const router = createBrowserRouter([
         )
     },
     {
-        path: '/notes/:username',
+        path: '/notes/user/:username',
         element: (
             <ProtectedRoute>
                 <UserNotePage />
