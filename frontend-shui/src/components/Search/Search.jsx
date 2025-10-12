@@ -1,5 +1,5 @@
 import backIcon from '../../assets/left.png';
-//import './search.css';
+import './search.css';
 
 const Search = ({ date, setDate, notes, setFilteredNotes }) => {
   

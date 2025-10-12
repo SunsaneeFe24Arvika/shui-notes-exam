@@ -52,7 +52,7 @@ const CreateNewNote = ({ onNoteCreated }) => {
 
     return (
         <div className="create-note">
-            <h2 className="create-note__title">Share what is in your mind!</h2>
+            <h2 className="create-note__title">Share what's on your mind?</h2>
             
             {error && <div className="create-note__error">{error}</div>}
             
