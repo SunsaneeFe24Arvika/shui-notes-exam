@@ -5,6 +5,7 @@ import { getAllNotes } from '../../api/notes';
 import NoteList from "../../components/NoteList/NoteList";
 import Header from "../../components/Header/Header";
 import NavBar from "../../components/NavBar/NavBar";
+import { getNoteById } from '../../api/notes';
 //import './userNotePage.css';
 
 const UserNotePage = () => {
@@ -50,6 +51,11 @@ const UserNotePage = () => {
         navigate(`/notes/user/${username}`);
     };
 
+    // Ny funktion för att navigera till note details
+    const handleNoteClick = (noteId) => {
+        navigate(`/notes/${noteId}`);
+    };
+
     return (
         <section className="user-note__page">
             <Header />
@@ -62,7 +68,7 @@ const UserNotePage = () => {
                 ) : (
                     <NoteList 
                         notes={notes}
-                        onNoteSelect={handleUsername}
+                        onNoteSelect={handleNoteClick}
                     />
                 )}
             </div>
