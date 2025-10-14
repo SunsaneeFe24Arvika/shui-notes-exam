@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import './registerForm.css';
+import './RegisterForm.css';
 import { apiRegister } from '../../api/auth';
 
 const RegisterForm = ({ toggleForm }) => {
@@ -12,9 +12,14 @@ const RegisterForm = ({ toggleForm }) => {
     const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
     const [error, setError] = useState('');
 
-     // Funktion för att toggle lösenordsvisning
+     // Funktion för att toggle lösenordsvisning för första lösenordsfältet
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
+    };
+
+    // Funktion för att toggle lösenordsvisning för bekräfta lösenord-fältet
+    const togglePasswordRepeatVisibility = () => {
+        setShowPasswordRepeat(!showPasswordRepeat);
     };
 
 
@@ -55,7 +60,11 @@ const RegisterForm = ({ toggleForm }) => {
             <label className="form__label">
                 Password:
                 <div className='password-input-container'>
-                    <input className="form__input" type="password" ref={ passwordRef } />
+                    <input 
+                        className="form__input" 
+                        type={showPassword ? 'text' : 'password'} 
+                        ref={ passwordRef } 
+                    />
                 <i 
                     className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'} password-toggle-icon`}
                     onClick={togglePasswordVisibility}
@@ -65,10 +74,14 @@ const RegisterForm = ({ toggleForm }) => {
             <label className="form__label">
                 Confirm Password:
                 <div className='password-input-container'>
-                    <input className="form__input password-input-container" type="password" ref={ passwordRepeatRef } />
+                    <input 
+                        className="form__input" 
+                        type={showPasswordRepeat ? 'text' : 'password'} 
+                        ref={ passwordRepeatRef } 
+                    />
                 <i 
-                    className={`fa-solid ${showPassword ? 'fa-eye-slash' : 'fa-eye'} password-toggle-icon`}
-                    onClick={togglePasswordVisibility}
+                    className={`fa-solid ${showPasswordRepeat ? 'fa-eye-slash' : 'fa-eye'} password-toggle-icon`}
+                    onClick={togglePasswordRepeatVisibility}
                 ></i>
                 </div>                
             </label>
